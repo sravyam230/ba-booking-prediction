@@ -30,9 +30,18 @@ The simulation has two tasks. Task 1 is a modelling exercise in Excel; Task 2 is
 
 ## Task 2 – Predicting customer buying behaviour
 
-*(Notebook to follow.)*
+**Brief.** Build a model that predicts whether a booking enquiry will be completed and explain which variables drive that outcome, then summarise the findings on one slide for a manager.
 
-Trained a random forest classifier on an imbalanced booking dataset to predict which customers would complete a booking, evaluated with cross-validation on ROC-AUC and recall rather than accuracy, and used feature importance to identify the main drivers. Findings were summarised on a single slide for a non-technical manager.
+**Data.** 50,000 enquiries with 13 features: passengers, sales channel, trip type, lead time, length of stay, flight hour and day, route, booking origin, three add-on flags and flight duration. About 15% of enquiries complete, so the target is imbalanced.
+
+**Approach.** [`booking_prediction.ipynb`](booking_prediction.ipynb)
+- Explored the data (no missing values, 719 duplicate rows removed, 799 distinct routes, 104 booking origins) and built a preprocessing pipeline with imputation and one-hot encoding.
+- Trained a class-weighted random forest as a baseline and evaluated it with five-fold stratified cross-validation on accuracy, precision, recall, F1 and ROC-AUC, then on a held-out test split.
+- Diagnosed the baseline: accuracy of about 0.85 matched the 85% majority class and recall on bookers was low, because fully grown trees on roughly 900 one-hot columns were overfitting.
+- Second iteration: dropped `route`, grouped rare booking origins, capped tree depth and leaf size. Recall rose to about 0.70 at ROC-AUC 0.76, with precision 0.29, a deliberate trade-off for a marketing use case.
+- Used feature importances to identify the main drivers and summarised the results on one slide for a non-technical manager.
+
+**Results.** Lead time, length of stay and flight hour are the strongest drivers in the baseline; once route is removed, the origin market comes to the front (Malaysian enquiries convert at 34% against 5% for Australia). Add-ons carry moderate signal; sales channel and day of week very little.
 
 ## Tools
 
