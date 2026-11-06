@@ -1,0 +1,7 @@
+grouping,example_destinations,tier1_pct,tier2_pct,tier3_pct,notes
+Short-haul Early,Europe AM,2,8,20,"Low premium, some business travel"
+Short-haul Mid-day,Europe Midday,1,6,15,Leisure-heavy mix
+Short-haul Evening,Europe PM,1,7,18,After-work business travel
+Long-haul Early,North America AM,5,15,40,High business and premium mix
+Long-haul Mid-day,Asia Midday,4,12,35,Balanced premium/leisure mix
+Long-haul Evening,USA PM,6,18,45,Peak premium and loyalty usage
